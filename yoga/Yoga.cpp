@@ -3188,17 +3188,14 @@ float YGRoundValueToPixelGrid(const float value,
     scaledValue = scaledValue - fractial + 1.0;
   } else if (forceCeil) {
     // Next we check if we need to use forced rounding
-    scaledValue = scaledValue - fractial + 1.0f;
+    scaledValue = ceilf(scaledValue);
   } else if (forceFloor) {
-    scaledValue = scaledValue - fractial;
+    scaledValue = floorf(scaledValue);
   } else {
     // Finally we just round the value
-    scaledValue = scaledValue - fractial +
-        (!YGFloatIsUndefined(fractial) &&
-                 (fractial > 0.5f || YGFloatsEqual(fractial, 0.5f))
-             ? 1.0f
-             : 0.0f);
+    scaledValue = roundf(scaledValue);
   }
+
   return (YGFloatIsUndefined(scaledValue) ||
           YGFloatIsUndefined(pointScaleFactor))
       ? YGUndefined
